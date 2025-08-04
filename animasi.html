@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animasi Orang Berjalan</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #87CEEB;
+        }
+        .ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            background-color: #228B22;
+        }
+        .player {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            width: 50px;
+            height: 100px;
+            background-color: #8B4513;
+            border-radius: 10px;
+            transform-origin: bottom center;
+            animation: walk 1s steps(4) infinite;
+        }
+        .player .head {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #FFD700;
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+        .player .legs {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 100%;
+            height: 20px;
+            background-color: #A52A2A;
+            transform-origin: top center;
+            animation: legMove 1s steps(4) infinite;
+        }
+        @keyframes walk {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(10deg); }
+            50% { transform: translateX(-50%) rotate(0deg); }
+            75% { transform: translateX(-50%) rotate(-10deg); }
+            100% { transform: translateX(-50%) rotate(0deg); }
+        }
+        @keyframes legMove {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(45deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="ground"></div>
+    <div class="player" id="player">
+        <div class="head"></div>
+        <div class="legs"></div>
+    </div>
+    <script>
+        const player = document.getElementById('player');
+        let position = 50;
+
+        function movePlayer(direction) {
+            position += direction;
+            if (position < 0) position = 0;
+            if (position > 100) position = 100;
+            player.style.left = position + '%';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                movePlayer(-1);
+            } else if (e.key === 'ArrowRight') {
+                movePlayer(1);
+            }
+        });
+    </script>
+</body>
+</html>
